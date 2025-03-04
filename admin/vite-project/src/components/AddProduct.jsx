@@ -26,7 +26,7 @@ const AddProduct = () => {
         formData.append('category', category);
 
         // Make the POST request without custom headers
-        const response = await axios.post('http://localhost:4000/api/product/add', formData);
+        const response = await axios.post('https://praticeproject.onrender.com/api/product/add', formData);
 
         console.log(response.data);  // Log response to ensure it's what you expect
 

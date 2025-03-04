@@ -5,7 +5,7 @@ const ProductList = () => {
     const [list, setList] = useState([]);
 
     const fetchList = async () => {
-        const response = await axios.get('http://localhost:4000/api/product/list');
+        const response = await axios.get('https://praticeproject.onrender.com/api/product/list');
         if (response.data.success) {
             setList(response.data.data);
         } else {
@@ -15,7 +15,7 @@ const ProductList = () => {
     };
 
     const removeProduct = async (productId) => {
-        const response = await axios.post('http://localhost:4000/api/product/remove', { id: productId });
+        const response = await axios.post('https://praticeproject.onrender.com/api/product/remove', { id: productId });
         await fetchList();
         if (response.data.success) {
             alert(response.data.message);
