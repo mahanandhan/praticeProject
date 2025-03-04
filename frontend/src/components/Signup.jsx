@@ -16,7 +16,7 @@ const Signup = () => {
     } else {
       try {
         // Send the POST request to the backend to register the user
-        const response = await axios.post('http://localhost:4000/api/user/register', { 
+        const response = await axios.post('https://praticeproject.onrender.com/api/user/register', { 
           name: username, 
           email, 
           password 

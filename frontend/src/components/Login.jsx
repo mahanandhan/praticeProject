@@ -15,7 +15,7 @@ const Login = () => {
     } else {
       try {
         
-        const response = await axios.post('http://localhost:4000/api/user/login', { email, password });
+        const response = await axios.post('https://praticeproject.onrender.com/api/user/login', { email, password });
         
         
         if (response.data.success) {

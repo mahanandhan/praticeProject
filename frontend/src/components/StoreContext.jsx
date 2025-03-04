@@ -13,7 +13,7 @@ export const StoreProvider = ({ children }) => {
   // Fetch product list from backend API
   const fetchProductList = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/product/list');
+      const response = await axios.get('https://praticeproject.onrender.com/api/product/list');
       setItems(response.data.data); // Corrected: setItems instead of setList
     } catch (error) {
       console.error('Error fetching product list:', error);
@@ -23,7 +23,7 @@ export const StoreProvider = ({ children }) => {
   // Fetch cart data from backend using stored token
   const localCartData = async (token) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/cart/get', {}, { headers: { token } });
+      const response = await axios.post('https://praticeproject.onrender.com/api/cart/get', {}, { headers: { token } });
       setCart(response.data.cartData);
     } catch (error) {
       console.error('Error fetching cart data:', error);
@@ -38,7 +38,7 @@ export const StoreProvider = ({ children }) => {
         [itemId]: (prevCart[itemId] || 0) + 1, // Increment the specific item's quantity
       }));
       if (token) {
-        await axios.post('http://localhost:4000/api/cart/add', { itemId }, { headers: { token } });
+        await axios.post('https://praticeproject.onrender.com/api/cart/add', { itemId }, { headers: { token } });
       }
     } catch (error) {
       console.error('Error adding item to cart:', error);
@@ -59,7 +59,7 @@ export const StoreProvider = ({ children }) => {
         return newCart;
       });
       if (token) {
-        await axios.post('http://localhost:4000/api/cart/remove', { itemId }, { headers: { token } });
+        await axios.post('https://praticeproject.onrender.com/api/cart/remove', { itemId }, { headers: { token } });
       }
     } catch (error) {
       console.error('Error removing item from cart:', error);

@@ -15,7 +15,7 @@ const ProductItem = ({ itemId, name, image, color }) => {
   return (
     <div className="border rounded-lg p-4 shadow-lg bg-white hover:shadow-xl transition">
       <img
-        src={`http://localhost:4000/images/${image}`}
+        src={`https://praticeproject.onrender.com/images/${image}`}
         alt={name}
         className="h-40 object-cover rounded-md mx-auto"
       />
