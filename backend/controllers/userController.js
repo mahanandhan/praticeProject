@@ -53,4 +53,23 @@ const registerUser = async (req, res) => {
 
 }
 
-export {loginUser, registerUser};
+const getUserProfile = async (req, res) => {
+   try {
+    const userId = req.body.userId
+    const user = await userModel.findById(userId).select("-password");
+
+    if(!user){
+        return res.status(404).json({success: false, message: "User not found"});
+    }
+    console.log("user profile")
+    res.json({success: true, user})
+   } catch (error) {
+    console.log(error)
+    res.status(500).json({success: false, message: "Internal server error"});
+   }
+};
+
+
+
+
+export {loginUser, registerUser, getUserProfile};
