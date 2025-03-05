@@ -13,7 +13,7 @@ const Start = () => {
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 w-full">
       {/* Logo Section */}
       <div className="mb-6 w-full flex justify-center">
-        <img src="/src/assets/ms.png" alt="Logo" className="w-48 h-auto" />
+        <img src="https://praticeproject.onrender.com/src/assets/ms.png" alt="Logo" className="w-48 h-auto" />
       </div>
 
       {/* Login/Signup Text Section */}
