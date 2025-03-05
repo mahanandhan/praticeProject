@@ -27,7 +27,7 @@ const Profile = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:4000/api/user/profile', {
+        const response = await axios.get('https://praticeproject.onrender.com/api/user/profile', {
           headers: { token },
         });
 
