@@ -62,12 +62,16 @@ const Profile = () => {
           {user.user.email}
         </p>
       </div>
+      <div className='flex gap-6'>
       <button
         onClick={handleDelete}
-        className="w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer"
+        className="w-full p-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer"
       >
         Logout
       </button>
+      <button className='w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer'>update</button>
+      </div>
+      
     </div>
   );
 };
