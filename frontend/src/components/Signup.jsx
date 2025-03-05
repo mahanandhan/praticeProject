@@ -30,7 +30,7 @@ const Signup = () => {
         }
       } catch (error) {
         console.error('Error during signup:', error.response);
-        alert('Something went wrong during signup, please try again.');
+        alert('User already exist');
       }
     }
   };
