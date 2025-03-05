@@ -25,7 +25,8 @@ const Login = () => {
           
           navigate('/product');
         } else {
-          alert(response.data.message); 
+          alert("User not Exist Please Register");
+          navigate('/signup'); 
         }
       } catch (error) {
         console.error("There was an error during login!", error);
