@@ -47,6 +47,7 @@ const ProductList = () => {
             image={item.image}
             description={item.description}
             color={item.color}
+            category={item.category}
           />
         ))}
       </div>

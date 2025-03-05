@@ -53,15 +53,15 @@ const Details = () => {
         </button>
         <div className="flex gap-6">
           <img
-            src={`http://localhost:4000/images/${product.image}`} 
+            src={`https://praticeproject.onrender.com/images/${product.image}`} 
             alt={product.name}
             className="w-34 h-34 object-cover rounded-md "
           />
           <div className="flex flex-col justify-between">
             <h1 className="text-3xl font-semibold text-gray-800 mb-2">{product.name}</h1>
             <p className="text-lg text-gray-600 mb-4">{product.description}</p> 
-            <p className="text-xl font-bold text-blue-500">{product.price}</p>
-            <p className={`text-sm ${product.color} mt-4`}>Color: {product.color}</p>
+            <p className="text-xl font-bold text-blue-500">₹{product.price}</p>
+            <p className={`text-sm ${product.color} mt-4`}>Category: {product.category}</p>
           </div>
         </div>
       </div>

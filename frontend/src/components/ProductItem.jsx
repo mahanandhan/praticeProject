@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { StoreContext } from "./StoreContext";
 import { useNavigate } from "react-router-dom";
 
-const ProductItem = ({ itemId, name, image, color }) => {
+const ProductItem = ({ itemId, name, image, color, price, description, category }) => {
   const { cart, addToCart, removeFromCart } = useContext(StoreContext);
   const quantity = cart[itemId] || 0;  // Get quantity for the specific item
   const navigate = useNavigate();
@@ -21,6 +21,9 @@ const ProductItem = ({ itemId, name, image, color }) => {
       />
       <h3 className="text-lg font-semibold mt-2">{name}</h3>
       <p className={`text-sm ${color}`}>{name}</p>
+      <p>Price: ₹{price}</p>
+      <p>Category: {category}</p>
+      <p>Description: {description}</p>
 
       {quantity > 0 ? (
         <div className="flex items-center gap-2 mt-2">

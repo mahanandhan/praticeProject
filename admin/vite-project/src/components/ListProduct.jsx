@@ -50,7 +50,7 @@ const ProductList = () => {
                         <div key={index} className="flex justify-between p-4 border-b border-gray-200">
                             <div className="w-1/6 flex justify-center">
                                 <img
-                                    src={'http://localhost:4000/images/' + item.image}
+                                    src={'https://praticeproject.onrender.com/images/' + item.image}
                                     alt={item.name}
                                     className="w-16 h-16 object-cover rounded-md"
                                 />
