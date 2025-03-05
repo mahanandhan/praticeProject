@@ -1,8 +1,29 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, Component } from 'react';
 import axios from 'axios';
 
 // Create context
 export const StoreContext = createContext();
+
+// Error Boundary Component to handle errors gracefully
+class ErrorBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h2>Something went wrong. Please try again later.</h2>;
+    }
+
+    return this.props.children;
+  }
+}
 
 // StoreProvider component that provides the context to the rest of the app
 export const StoreProvider = ({ children }) => {
@@ -67,13 +88,13 @@ export const StoreProvider = ({ children }) => {
   };
 
   // Calculate total amount from cart and product prices
-  const totalAmount = Object.keys(cart).reduce((sum, itemId) => {
+  const totalAmount = (items.length && Object.keys(cart || {}).reduce((sum, itemId) => {
     const item = items.find((item) => item._id === itemId); // Ensure type consistency
     if (item) {
       return sum + item.price * cart[itemId];
     }
     return sum;
-  }, 0);
+  }, 0)) || 0; // Fallback to 0 if items is empty
 
   // Load data from localStorage and backend when the component mounts
   useEffect(() => {
@@ -94,3 +115,14 @@ export const StoreProvider = ({ children }) => {
     </StoreContext.Provider>
   );
 };
+
+// Wrap the StoreProvider component with ErrorBoundary to catch any unexpected errors
+const App = () => (
+  <ErrorBoundary>
+    <StoreProvider>
+      {/* Your app components here */}
+    </StoreProvider>
+  </ErrorBoundary>
+);
+
+export default App;
