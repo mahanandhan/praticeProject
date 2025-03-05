@@ -59,7 +59,7 @@ const Cart = () => {
 
           <div className="flex justify-between items-center mt-4 p-4 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800">Total Amount</h2>
-            <p className="text-3xl font-bold text-green-600">${totalAmount}</p>
+            <p className="text-3xl font-bold text-green-600">₹{totalAmount}</p>
           </div>
 
           <div className="flex justify-end mt-4">
