@@ -2,11 +2,13 @@
 import React, { useContext } from "react";
 import { StoreContext } from "./StoreContext";
 import { useNavigate } from "react-router-dom";
-
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton,LinkedinShareButton, FacebookIcon, TwitterIcon, WhatsappIcon, LinkedinIcon } from 'react-share';
 const ProductItem = ({ itemId, name, image, color, price, description, category }) => {
   const { cart, addToCart, removeFromCart } = useContext(StoreContext);
   const quantity = cart[itemId] || 0;  // Get quantity for the specific item
   const navigate = useNavigate();
+  const shareUrl = `https://pratice-project-eight.vercel.app/product`;
+  const title = `Check out ${name} on MyStore!`;
 
   const goToDetails = () => {
     navigate('/details/' + itemId);
@@ -57,6 +59,21 @@ const ProductItem = ({ itemId, name, image, color, price, description, category 
           </button>
         </div>
       )}
+      <div className="flex justify-center gap-5 mt-4">
+        <FacebookShareButton url={shareUrl} quote={title} className="mt-2">
+          <FacebookIcon size={32} round />
+        </FacebookShareButton>
+        <TwitterShareButton url={shareUrl} title={title} className="mt-2">
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
+        <WhatsappShareButton url={shareUrl} title={title} className="mt-2">
+          <WhatsappIcon size={32} round />
+        </WhatsappShareButton>
+        <LinkedinShareButton url={shareUrl} title={title} className="mt-2">
+          <LinkedinIcon size={32} round />
+        </LinkedinShareButton>
+        
+      </div>
     </div>
   );
 };
