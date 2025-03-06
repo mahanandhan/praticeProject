@@ -1,5 +1,5 @@
 // ProductList.js
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductItem from './ProductItem';
 import { FaCartArrowDown } from "react-icons/fa";
@@ -8,7 +8,27 @@ import { StoreContext } from './StoreContext';
 
 const ProductList = () => {
   const navigate = useNavigate();
-  const { items } = useContext(StoreContext);  // Use items from context
+  const { items } = useContext(StoreContext);  
+
+  
+  const [searchQuery, setSearchQuery] = useState(() => {
+    const savedQuery = localStorage.getItem("searchQuery");
+    return savedQuery || ""; 
+  });
+
+  useEffect(() => {
+    // Store the search query in localStorage every time it changes
+    if (searchQuery) {
+      localStorage.setItem("searchQuery", searchQuery);
+    }
+  }, [searchQuery]);  // Run this effect whenever searchQuery changes
+
+  // Filter products based on search query
+  const filteredItems = items.filter(item =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const goToCart = () => {
     navigate('/cart');
@@ -18,6 +38,10 @@ const ProductList = () => {
     navigate('/profile');
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);  // Update search query as user types
+  };
+
   return (
     <div>
       <div className="bg-black ml-0 mr-0 mt-4 mb-4 p-4 shadow-md flex justify-between items-center">
@@ -25,8 +49,19 @@ const ProductList = () => {
           <span>MyStore</span>
         </div>
         <div className="flex items-center">
-          <input type="text" placeholder="Search..." className='p-2 border rounded mr-2 text-white w-150'/>
-          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Search</button>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            value={searchQuery}  // Controlled input
+            onChange={handleSearchChange}  // Handle input change
+            className="p-2 border rounded mr-2 text-white w-full sm:w-64 md:w-150 lg:w-200"
+          />
+          <button 
+            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            onClick={() => {}}
+          >
+            Search
+          </button>
         </div>
         <div className="flex items-center gap-10">
           <FaCartArrowDown
@@ -41,18 +76,22 @@ const ProductList = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-        {items.map((item) => (
-          <ProductItem
-            key={item._id}
-            itemId={item._id}
-            name={item.name}
-            price={item.price}
-            image={item.image}
-            description={item.description}
-            color={item.color}
-            category={item.category}
-          />
-        ))}
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item) => (
+            <ProductItem
+              key={item._id}
+              itemId={item._id}
+              name={item.name}
+              price={item.price}
+              image={item.image}
+              description={item.description}
+              color={item.color}
+              category={item.category}
+            />
+          ))
+        ) : (
+          <div className="text-white text-center">No products found</div>
+        )}
       </div>
     </div>
   );
