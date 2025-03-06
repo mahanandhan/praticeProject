@@ -9,6 +9,7 @@ import Address from './components/Address';
 import Details from './components/Details';
 import Profile from './components/Profile';
 import Start from './components/Start';
+import UpdateProfile from './UpdateProfile';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/details/:itemId' element={<Details />} />
         <Route path='/profile' element={<Profile />} />
         <Route path="/" element={<Start />} />
+        <Route path="/update-profile" element={<UpdateProfile />} />
       </Routes>
     </div>
   );

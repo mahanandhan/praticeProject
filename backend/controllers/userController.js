@@ -69,7 +69,30 @@ const getUserProfile = async (req, res) => {
    }
 };
 
+const updateProfile = async (req, res) => {
+    const {name, email} = req.body;
+    const userId = req.body.userId;
+    try {
+        if(email && !validator.isEmail(email)){
+            return res.status(400).json({success: false, message: "Invalid email"});
+        }
+        const updateData = {};
+        if(name) updateData.name = name;
+        if(email) updateData.email = email;
+        const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, {new: true});
+        if(!updatedUser){
+            return res.status(404).json({success: false, message: "User not found"});
+        }
+        const userProfile = updatedUser.toObject();
+        delete userProfile.password;
+        res.json({success: true, message: "Profile updated successfully", user: userProfile});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "Internal server error"});
+    }
+}
 
 
 
-export {loginUser, registerUser, getUserProfile};
+
+export {loginUser, registerUser, getUserProfile, updateProfile};
