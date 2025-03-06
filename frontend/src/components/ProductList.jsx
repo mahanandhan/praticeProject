@@ -1,5 +1,5 @@
 // ProductList.js
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductItem from './ProductItem';
 import { FaCartArrowDown } from "react-icons/fa";
@@ -8,23 +8,12 @@ import { StoreContext } from './StoreContext';
 
 const ProductList = () => {
   const navigate = useNavigate();
-  const { items } = useContext(StoreContext);  
+  const { items } = useContext(StoreContext);  // Use items from context
 
-  
-  const [searchQuery, setSearchQuery] = useState(() => {
-    const savedQuery = localStorage.getItem("searchQuery");
-    return savedQuery || ""; 
-  });
-
-  useEffect(() => {
-    // Store the search query in localStorage every time it changes
-    if (searchQuery) {
-      localStorage.setItem("searchQuery", searchQuery);
-    }
-  }, [searchQuery]);  // Run this effect whenever searchQuery changes
+  const [searchQuery, setSearchQuery] = useState("");  // Track search input
 
   // Filter products based on search query
-  const filteredItems = items.filter(item =>
+  const filteredItems = items.filter(item => 
     item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.description.toLowerCase().includes(searchQuery.toLowerCase())
