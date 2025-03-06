@@ -15,7 +15,7 @@ const ProductItem = ({ itemId, name, image, color, price, description, category 
   };
 
   return (
-    <div className="border rounded-lg p-4 shadow-lg bg-white hover:shadow-xl transition">
+    <div className="border rounded-lg p-4 shadow-2xl bg-white hover:shadow-xl transition hover:scale-105 ">
       <img
         src={`https://praticeproject.onrender.com/images/${image}`}
         alt={name}
@@ -61,7 +61,7 @@ const ProductItem = ({ itemId, name, image, color, price, description, category 
       )}
       <div className="flex justify-center gap-5 mt-4">
         <FacebookShareButton url={shareUrl} quote={title} className="mt-2">
-          <FacebookIcon size={32} round />
+          <FacebookIcon size={32} round  />
         </FacebookShareButton>
         <TwitterShareButton url={shareUrl} title={title} className="mt-2">
           <TwitterIcon size={32} round />
