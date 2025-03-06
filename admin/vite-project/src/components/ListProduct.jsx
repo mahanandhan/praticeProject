@@ -56,7 +56,7 @@ const ProductList = () => {
                                 />
                             </div>
                             <div className="w-1/6">{item.name}</div>
-                            <div className="w-1/6">${item.price}</div>
+                            <div className="w-1/6">₹{item.price}</div>
                             <div className="w-1/6">{item.category}</div>
                             <div className="w-1/6">{item.description}</div>
                             <div className="w-1/6 text-center">
