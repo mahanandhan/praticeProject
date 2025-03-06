@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+#loader {
+    width: 32px;
+    height: 90px;
+    display: block;
+    margin: 20px auto;
+    position: relative;
+    border-radius: 50% 50% 0 0;
+    border-bottom: 10px solid #FF3D00;
+    background-color: #FFF;
+    background-image: radial-gradient(ellipse at center, #FFF 34%, #FF3D00 35%, #FF3D00 54%, #FFF 55%), linear-gradient(#FF3D00 10px, transparent 0);
+}

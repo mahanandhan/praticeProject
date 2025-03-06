@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './components/css/UpdateProfile.css';
 
 const UpdateProfile = () => {
     const [user, setUser] = useState({
@@ -56,7 +57,11 @@ const UpdateProfile = () => {
     }
 
     if(loading){
-        return <div className="text-center text-xl text-gray-500">Loading...</div>;
+        return <div className='flex items-center justify-center h-screen'>
+            <div className="loader">
+
+            </div>
+        </div>;
     }
     if(error){
         return <div className="text-center text-red-500">{error}</div>;
