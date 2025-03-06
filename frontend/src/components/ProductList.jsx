@@ -24,7 +24,10 @@ const ProductList = () => {
         <div className="text-white font-bold text-xl">
           <span>MyStore</span>
         </div>
-
+        <div className="flex items-center">
+          <input type="text" placeholder="Search..." className='p-2 border rounded mr-2 text-white w-150'/>
+          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Search</button>
+        </div>
         <div className="flex items-center gap-10">
           <FaCartArrowDown
             onClick={goToCart}
