@@ -1,4 +1,3 @@
-// ProductList.js
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductItem from './ProductItem';
@@ -11,13 +10,24 @@ const ProductList = () => {
   const { items } = useContext(StoreContext);  // Use items from context
 
   const [searchQuery, setSearchQuery] = useState("");  // Track search input
+  const [filterSuggestions, setFilterSuggestions] = useState([]);  // Track filter suggestions
 
-  // Filter products based on search query
-  const filteredItems = items.filter(item => 
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);  // Update search query as user types
+
+    const suggestions = items.filter((item) => 
+      item.name.toLowerCase().includes(query.toLowerCase()) || 
+      item.description.toLowerCase().includes(query.toLowerCase()) || 
+      item.category.toLowerCase().includes(query.toLowerCase())
+    );  // Filter items based on search query
+
+    setFilterSuggestions(suggestions);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    navigate(`/search-results?query=${suggestion.name || suggestion.description || suggestion.category}`);
+  };
 
   const goToCart = () => {
     navigate('/cart');
@@ -27,26 +37,22 @@ const ProductList = () => {
     navigate('/profile');
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);  // Update search query as user types
-  };
-
   return (
     <div>
       <div className="bg-black ml-0 mr-0 mt-4 mb-4 p-4 shadow-md flex justify-between items-center">
         <div className="text-white font-bold text-xl">
           <span>MyStore</span>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center relative">
           <input 
             type="text" 
             placeholder="Search..." 
             value={searchQuery}  // Controlled input
             onChange={handleSearchChange}  // Handle input change
-            className="p-2 border rounded mr-2 text-white w-full sm:w-64 md:w-150 lg:w-200"
+            className="p-2 border border-gray-300 rounded-lg text-white w-full sm:w-4 md:w-150 lg:w-200 gap-5 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           <button 
-            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-2"
             onClick={() => {}}
           >
             Search
@@ -55,7 +61,7 @@ const ProductList = () => {
         <div className="flex items-center gap-10">
           <FaCartArrowDown
             onClick={goToCart}
-            className="text-white text-3xl cursor-pointer"
+            className="text-white text-3xl cursor-pointer ml-4"
           />
           <VscAccount
             onClick={goToProfile}
@@ -64,9 +70,25 @@ const ProductList = () => {
         </div>
       </div>
 
+      {/* Suggestions Horizontal Line */}
+      <div className="flex flex-wrap gap-2 mt-4 px-4">
+        {filterSuggestions.length > 0 && searchQuery && (
+          filterSuggestions.map((suggestion) => (
+            <div
+              key={suggestion._id}
+              className="cursor-pointer hover:bg-gray-100 p-3 rounded-lg border border-gray-300 text-gray-800 text-sm font-medium transition-all duration-200 ease-in-out"
+              onClick={() => handleSuggestionClick(suggestion)}
+            >
+              <p>{suggestion.name || suggestion.description || suggestion.category}</p>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-        {filteredItems.length > 0 ? (
-          filteredItems.map((item) => (
+        {items.length > 0 ? (
+          items.map((item) => (
             <ProductItem
               key={item._id}
               itemId={item._id}
@@ -79,7 +101,7 @@ const ProductList = () => {
             />
           ))
         ) : (
-          <div className="text-white text-center">No products found</div>
+          <div className="text-black margin-auto text-center">No products found</div>
         )}
       </div>
     </div>

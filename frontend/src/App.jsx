@@ -10,6 +10,7 @@ import Details from './components/Details';
 import Profile from './components/Profile';
 import Start from './components/Start';
 import UpdateProfile from './UpdateProfile';
+import SearchResults from './components/SearchResults';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path="/" element={<Start />} />
         <Route path="/update-profile" element={<UpdateProfile />} />
+        <Route path='/search-results' element={<SearchResults />} />
       </Routes>
     </div>
   );
