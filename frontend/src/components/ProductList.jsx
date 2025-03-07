@@ -25,7 +25,15 @@ const ProductList = () => {
     setFilterSuggestions(suggestions);
   };
 
+  const handleSearchClick = () => {
+    // When search button is clicked, navigate to search results page with query
+    if (searchQuery.trim()) {
+      navigate(`/search-results?query=${searchQuery}`);
+    }
+  };
+
   const handleSuggestionClick = (suggestion) => {
+    // Redirect to search results for the selected suggestion
     navigate(`/search-results?query=${suggestion.name || suggestion.description || suggestion.category}`);
   };
 
@@ -53,7 +61,7 @@ const ProductList = () => {
           />
           <button 
             className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-2"
-            onClick={() => {}}
+            onClick={handleSearchClick}  // Trigger search when button is clicked
           >
             Search
           </button>
