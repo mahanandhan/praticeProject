@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProductItem from './ProductItem';
 import { FaCartArrowDown } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { StoreContext } from './StoreContext';
+import { BsFillMicFill } from "react-icons/bs";
+import ProductItem from './ProductItem';
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -12,6 +13,15 @@ const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState("");  // Track search input
   const [filterSuggestions, setFilterSuggestions] = useState([]);  // Track filter suggestions
 
+  // Initialize Speech Recognition (for browsers that support it)
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+
+  recognition.continuous = false; // Stops when user stops speaking
+  recognition.lang = 'en-US'; // Set language to English (you can change it based on your locale)
+  recognition.interimResults = false; // Get results only after speech ends
+
+  // Handle search input changes
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);  // Update search query as user types
@@ -25,15 +35,33 @@ const ProductList = () => {
     setFilterSuggestions(suggestions);
   };
 
+  // Start speech recognition when the microphone button is clicked
+  const startSpeechRecognition = () => {
+    recognition.start();  // Start listening to user's speech
+  };
+
+  // Handle the result of speech recognition (when the user finishes speaking)
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;  // Get the transcript from the speech
+    setSearchQuery(transcript);  // Update the search query with the recognized speech
+
+    // Update suggestions based on the recognized query
+    const suggestions = items.filter((item) => 
+      item.name.toLowerCase().includes(transcript.toLowerCase()) || 
+      item.description.toLowerCase().includes(transcript.toLowerCase()) || 
+      item.category.toLowerCase().includes(transcript.toLowerCase())
+    );
+    setFilterSuggestions(suggestions);
+  };
+
+  // Navigate to search results when the search button is clicked
   const handleSearchClick = () => {
-    // When search button is clicked, navigate to search results page with query
     if (searchQuery.trim()) {
       navigate(`/search-results?query=${searchQuery}`);
     }
   };
 
   const handleSuggestionClick = (suggestion) => {
-    // Redirect to search results for the selected suggestion
     navigate(`/search-results?query=${suggestion.name || suggestion.description || suggestion.category}`);
   };
 
@@ -65,6 +93,12 @@ const ProductList = () => {
           >
             Search
           </button>
+          
+          {/* Microphone Button */}
+          <BsFillMicFill 
+            onClick={startSpeechRecognition}
+            className="text-white text-5xl cursor-pointer ml-6 border border-gray-300 rounded-full p-2 hover:bg-gray-700 transition duration-300 ease-in-out hover:text-white hover:shadow-xl" 
+          />
         </div>
         <div className="flex items-center gap-10">
           <FaCartArrowDown
