@@ -92,6 +92,38 @@ const updateProfile = async (req, res) => {
     }
 }
 
+const forgotPassword = async (req, res) => {
+    const {email} = req.body;
+    userModel.findOne({email: email}).then(user => {
+        if(!user){
+            return res.status(404).json({success: false, message: "User not found"});
+        }
+        const token = jwt.sign({id: user._id}, process.env.SECRETE_KEY);
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'youremail@gmail.com',
+              pass: 'yourpassword'
+            }
+          });
+          
+          var mailOptions = {
+            from: 'youremail@gmail.com',
+            to: 'myfriend@yahoo.com',
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+    })
+}
 
 
-export {loginUser, registerUser, getUserProfile, updateProfile};
+export {loginUser, registerUser, getUserProfile, updateProfile, forgotPassword};
