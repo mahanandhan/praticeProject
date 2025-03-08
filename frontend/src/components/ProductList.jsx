@@ -5,6 +5,7 @@ import { VscAccount } from "react-icons/vsc";
 import { StoreContext } from './StoreContext';
 import { BsFillMicFill } from "react-icons/bs";
 import ProductItem from './ProductItem';
+import Footer from './Footer';
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -146,6 +147,7 @@ const ProductList = () => {
           <div className="text-black margin-auto text-center">No products found</div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };
