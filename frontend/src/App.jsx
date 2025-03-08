@@ -11,6 +11,7 @@ import Profile from './components/Profile';
 import Start from './components/Start';
 import UpdateProfile from './UpdateProfile';
 import SearchResults from './components/SearchResults';
+import ForgotPassword from './components/ForgotPassword';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/" element={<Start />} />
         <Route path="/update-profile" element={<UpdateProfile />} />
         <Route path='/search-results' element={<SearchResults />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
       </Routes>
     </div>
   );
