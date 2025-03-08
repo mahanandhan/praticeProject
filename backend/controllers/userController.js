@@ -94,5 +94,4 @@ const updateProfile = async (req, res) => {
 
 
 
-
 export {loginUser, registerUser, getUserProfile, updateProfile};

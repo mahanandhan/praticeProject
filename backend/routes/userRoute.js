@@ -9,4 +9,5 @@ userRouter.post("/login", loginUser);
 userRouter.get("/profile",authMiddleWare, getUserProfile);
 userRouter.put("/update",authMiddleWare, updateProfile);
 
+
 export default userRouter;
