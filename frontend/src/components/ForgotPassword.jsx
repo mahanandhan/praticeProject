@@ -20,7 +20,7 @@ const ForgotPassword = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            {/* <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-semibold text-center mb-6">Forgot Password</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -44,7 +44,8 @@ const ForgotPassword = () => {
                         </button>
                     </div>
                 </form>
-            </div>
+            </div> */}
+            <h1 className="min-h-screen w-full flex items-center justify-center bg-white sm:bg-black text-black sm:text-white text-5xl sm:text-4xl md:text-3xl lg:text-2xl xl:text-xl">Page is under maintaince</h1>
         </div>
     );
 }
