@@ -1,21 +1,47 @@
 // ProductItem.js
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "./StoreContext";
 import { useNavigate } from "react-router-dom";
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton,LinkedinShareButton, FacebookIcon, TwitterIcon, WhatsappIcon, LinkedinIcon } from 'react-share';
+import axios from "axios";
 const ProductItem = ({ itemId, name, image, color, price, description, category }) => {
   const { cart, addToCart, removeFromCart } = useContext(StoreContext);
+  const [user, setUser] = useState(null);
   const quantity = cart[itemId] || 0;  // Get quantity for the specific item
   const navigate = useNavigate();
   const shareUrl = `https://pratice-project-eight.vercel.app/product`;
   const title = `Check out ${name} on MyStore!`;
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setError('You have logged out successfully');
+          setLoading(false);
+          return;
+        }
+
+        const response = await axios.get('https://praticeproject.onrender.com/api/user/profile', {
+          headers: { token },
+        });
+
+        setUser(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProfile();
+  }, []);
   const goToDetails = () => {
     navigate('/details/' + itemId);
   };
 
   return (
-    <div className="border rounded-lg p-4 shadow-2xl bg-white hover:shadow-xl transition hover:scale-105 ">
+    <>
+      <div className="border rounded-lg p-4 shadow-2xl bg-white hover:shadow-xl transition hover:scale-105 ">
+      {user && <h2 className="text-xl font-bold">Hello, {user.user.name}</h2>}
       <img
         src={`https://praticeproject.onrender.com/images/${image}`}
         alt={name}
@@ -75,6 +101,8 @@ const ProductItem = ({ itemId, name, image, color, price, description, category 
         
       </div>
     </div>
+    </>
+    
   );
 };
 

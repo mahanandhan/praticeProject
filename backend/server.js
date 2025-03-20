@@ -6,7 +6,7 @@ import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 const app = express();
-const port = 4000;
+const port = 4002;
 //dbconnection
 connectDB();
 //middleware
