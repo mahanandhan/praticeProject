@@ -124,6 +124,14 @@ const forgotPassword = async (req, res) => {
           });
     })
 }
+const getUsers = async (req, res) => {
+        try {
+            const users = await userModel.find().select("-password");
+            res.json({success: true, users});
+        } catch (error) {
+            console.log(error);
+            res.json({success: false, message: "Something went wrong"});
+        }
+    }
 
-
-export {loginUser, registerUser, getUserProfile, updateProfile, forgotPassword};
+export {loginUser, registerUser, getUserProfile, updateProfile, forgotPassword, getUsers};

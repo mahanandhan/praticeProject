@@ -14,7 +14,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg">
-          <ul className="space-y-4 display flex justify-between text-3xl">
+          <ul className="space-y-4 text-3xl">
             <li>
               <Link 
                 to='/addProduct' 
@@ -39,9 +39,15 @@ const Dashboard = () => {
                 Orders
               </Link>
             </li>
+            <li>
+              <Link 
+                to='/user' 
+                className="text-blue-600 hover:text-blue-800 transition duration-300"
+              >
+                Users
+              </Link>
+            </li>
           </ul>
-        </div>
-        <div>
         </div>
       </div>
     </div>

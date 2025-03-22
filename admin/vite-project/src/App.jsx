@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import AddProduct from './components/AddProduct';
 import ListProduct from './components/ListProduct';
 import Dashboard from './pages/Dashboard';
+import UserList from './components/UserList';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/addProduct" element={<AddProduct />} />
         <Route path="/productlist" element={<ListProduct />} />
         <Route path="/" element={<Dashboard />} />
+        <Route path='/user' element={<UserList />} />
       </Routes>
     </div>
   );
